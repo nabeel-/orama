@@ -35,18 +35,13 @@ export const chartWidthHOC = InputComponent =>
         }
       }
     }
-    handleRef = (divNode) => {
+    handleRef = divNode => {
       this.divNode = divNode
     }
     render() {
       return (
-        <div
-          ref={this.handleRef}
-        >
-          <InputComponent
-            {...this.state}
-            {...this.props}
-          />
+        <div ref={this.handleRef}>
+          <InputComponent {...this.state} {...this.props} />
         </div>
       )
     }

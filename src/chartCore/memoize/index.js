@@ -29,45 +29,29 @@ export const getMemoize = (rerunCheck, transformFunc, isLayer) => {
   return memoizer
 }
 
-export const getMemoizeDimArrays = () => getMemoize(
-  rerunChecks.rerunCheckGetDimArrays, getDimArrays
-)
-export const getMemoizeTypes = () => getMemoize(
-  rerunChecks.rerunCheckGetTypes, getTypes
-)
-export const getMemoizeDomains = () => getMemoize(
-  rerunChecks.rerunCheckGetDomains, getDomains
-)
-export const getMemoizePlotRect = () => getMemoize(
-  rerunChecks.rerunCheckGetPlotRect, getPlotRect
-)
-export const getMemoizeRanges = () => getMemoize(
-  rerunChecks.rerunCheckGetRanges, getRanges
-)
-export const getMemoizeTickCounts = () => getMemoize(
-  rerunChecks.rerunCheckGetTickCounts, getTickCounts
-)
-export const getMemoizeScales = () => getMemoize(
-  rerunChecks.rerunCheckGetScales, getScales
-)
-export const getMemoizeRenderLayer = () => getMemoize(
-  rerunChecks.rerunCheckGetRenderLayers, getLayer, true
-)
+export const getMemoizeDimArrays = () =>
+  getMemoize(rerunChecks.rerunCheckGetDimArrays, getDimArrays)
+export const getMemoizeTypes = () => getMemoize(rerunChecks.rerunCheckGetTypes, getTypes)
+export const getMemoizeDomains = () => getMemoize(rerunChecks.rerunCheckGetDomains, getDomains)
+export const getMemoizePlotRect = () => getMemoize(rerunChecks.rerunCheckGetPlotRect, getPlotRect)
+export const getMemoizeRanges = () => getMemoize(rerunChecks.rerunCheckGetRanges, getRanges)
+export const getMemoizeTickCounts = () =>
+  getMemoize(rerunChecks.rerunCheckGetTickCounts, getTickCounts)
+export const getMemoizeScales = () => getMemoize(rerunChecks.rerunCheckGetScales, getScales)
+export const getMemoizeRenderLayer = () =>
+  getMemoize(rerunChecks.rerunCheckGetRenderLayers, getLayer, true)
 
 export const getMemoizeRenderLayers = () => {
   const layersMemoize = []
   const memoizeForLayers = props => {
-    const renderLayers = map(
-      props.layers,
-      (layer, i) => {
-        let layerMemoize = layersMemoize[i]
-        if (!layerMemoize) {
-          layersMemoize[i] = getMemoizeRenderLayer()
-          layerMemoize = layersMemoize[i]
-        }
-        return layerMemoize({...props, ...layer})
+    const renderLayers = map(props.layers, (layer, i) => {
+      let layerMemoize = layersMemoize[i]
+      if (!layerMemoize) {
+        layersMemoize[i] = getMemoizeRenderLayer()
+        layerMemoize = layersMemoize[i]
       }
-    )
+      return layerMemoize({...props, ...layer})
+    })
     return renderLayers
   }
   return memoizeForLayers

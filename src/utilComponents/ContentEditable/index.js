@@ -28,14 +28,14 @@ class ContentEditable extends React.Component {
       text: newText,
     })
   }
-  handleKeyDown = (evt) => {
+  handleKeyDown = evt => {
     if (evt.keyCode === 13) {
       evt.preventDefault()
       this.refs.block.blur()
       window.getSelection().removeAllRanges()
     }
   }
-  handleMouseDown = (evt) => {
+  handleMouseDown = evt => {
     evt.stopPropagation()
   }
   render() {
@@ -48,7 +48,7 @@ class ContentEditable extends React.Component {
         onInput={handleInput}
         onKeyDown={this.handleKeyDown}
         onMouseDown={this.handleMouseDown}
-        ref='block'
+        ref="block"
         style={{
           outline: 'none',
           cursor: 'text',

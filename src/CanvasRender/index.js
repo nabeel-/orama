@@ -2,8 +2,10 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import {DEFAULT_THEME} from '../defaultTheme'
 import {WIDTH, HEIGHT} from '../chartCore/defaults'
+
 import {basicRender} from './basicRender'
 
 /**
@@ -26,20 +28,20 @@ export class CanvasRender extends React.Component {
     height: HEIGHT,
     theme: DEFAULT_THEME,
   }
-  handleCanvasRef = (canvasNode) => {
+  handleCanvasRef = canvasNode => {
     this.canvasNode = canvasNode
   }
   componentDidMount = () => {
     this.handleUpdate(this.props)
   }
-  shouldComponentUpdate = (nextProps) => {
+  shouldComponentUpdate = nextProps => {
     if (this.props.width !== nextProps.width || this.props.height !== nextProps.height) return true
     return false
   }
   componentDidUpdate = () => {
     this.handleUpdate(this.props)
   }
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (this.props.renderData !== nextProps.renderData) {
       this.handleUpdate(nextProps)
     }
@@ -47,7 +49,7 @@ export class CanvasRender extends React.Component {
       this.handleUpdate(nextProps)
     }
   }
-  handleUpdate = (props) => {
+  handleUpdate = props => {
     const ctx = this.canvasNode.getContext('2d')
     ctx.save()
     ctx.scale(2, 2)

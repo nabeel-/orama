@@ -28,11 +28,6 @@ export class BlockSize extends React.Component {
     const refClbck = element => {
       this.element = element
     }
-    return (
-      <div
-        {..._.omit(this.props, ['onUpdate', 'onState'])}
-        ref={refClbck}
-      />
-    )
+    return <div {..._.omit(this.props, ['onUpdate', 'onState'])} ref={refClbck} />
   }
 }

@@ -1,7 +1,9 @@
 // Copyright 2017 Kensho Technologies, LLC.
 
-import {it as test} from 'mocha'
 import assert from 'assert'
+
+import {it as test} from 'mocha'
+
 import {ACCESSORS_GROUPS} from '../../chartCore/defaults'
 
 import {omitGroups} from './'

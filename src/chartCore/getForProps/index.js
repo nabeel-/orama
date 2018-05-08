@@ -1,6 +1,7 @@
 // Copyright 2017 Kensho Technologies, LLC.
 
 import _ from 'lodash'
+
 import {
   getType,
   getDomain,

@@ -22,10 +22,7 @@ import {getPlotValues} from '../../Layer/getPlotValues'
 import {getPath2D} from '../../utils/path2DUtils'
 
 const brushesRender = (props, datum) => {
-  const {
-    backgroundOffset = BACKGROUND_OFFSET,
-    plotRect,
-  } = props
+  const {backgroundOffset = BACKGROUND_OFFSET, plotRect} = props
   const stroke = props.strokeValue
   const fill = props.fillValue
   const fillAlpha = props.fillAlphaValue || 0.4
@@ -34,7 +31,8 @@ const brushesRender = (props, datum) => {
 
   const renderArgs = {
     ...values,
-    plotRect, backgroundOffset,
+    plotRect,
+    backgroundOffset,
     stroke,
     fill,
     fillAlpha,
@@ -54,11 +52,7 @@ const brushesRender = (props, datum) => {
       rightBottomLine(renderArgs),
     ]
   } else if (isNumber(values.x1) && isNumber(values.x2)) {
-    return [
-      verticalArea(renderArgs),
-      leftVerticalLine(renderArgs),
-      rightVerticalLine(renderArgs),
-    ]
+    return [verticalArea(renderArgs), leftVerticalLine(renderArgs), rightVerticalLine(renderArgs)]
   } else if (isNumber(values.y1) && isNumber(values.y2)) {
     return [
       horizontalArea(renderArgs),
@@ -71,8 +65,5 @@ const brushesRender = (props, datum) => {
 
 export const brushes = props => {
   if (!props.xScale && !props.yScale) return undefined
-  return flatten(map(
-    flatten(props.data),
-    datum => brushesRender(props, datum),
-  ))
+  return flatten(map(flatten(props.data), datum => brushesRender(props, datum)))
 }

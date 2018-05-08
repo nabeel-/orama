@@ -1,7 +1,9 @@
 // Copyright 2017 Kensho Technologies, LLC.
 
-import {it as test} from 'mocha'
 import assert from 'assert'
+
+import {it as test} from 'mocha'
+
 import {PLOT_RECT as plotRect} from '../../chartCore/defaults'
 
 import {ranges} from './'

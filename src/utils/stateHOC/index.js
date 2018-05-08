@@ -1,6 +1,7 @@
 // Copyright 2017 Kensho Technologies, LLC.
 
 import React from 'react'
+
 import isStatelessComponentFunction from '../isStatelessComponentFunction'
 
 function isFunction(functionToCheck) {
@@ -57,7 +58,7 @@ const stateHOC = (Child, initialState = {}) => {
         ...getInitialState(Child.initialState),
         ...getInitialState(initialState),
       }
-      handleChildUpdate = (childProps) => {
+      handleChildUpdate = childProps => {
         this.setState(childProps)
       }
       render() {
@@ -77,7 +78,7 @@ const stateHOC = (Child, initialState = {}) => {
       ...getInitialState(Child.initialState),
       ...getInitialState(initialState),
     }
-    handleChildUpdate = (childProps) => {
+    handleChildUpdate = childProps => {
       this.setState(childProps)
     }
     render() {

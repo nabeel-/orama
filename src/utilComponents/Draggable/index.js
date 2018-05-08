@@ -33,9 +33,7 @@ export class Draggable extends React.Component {
     deltaX: PropTypes.number,
     deltaY: PropTypes.number,
   }
-  canUpdate = [
-    'deltaX', 'deltaY',
-  ]
+  canUpdate = ['deltaX', 'deltaY']
   static defaultProps = {
     initialPos: {x: 0, y: 0},
   }
@@ -52,7 +50,7 @@ export class Draggable extends React.Component {
     }
   }
   // calculate relative position to the mouse and set dragging=true
-  onMouseDown = (evt) => {
+  onMouseDown = evt => {
     // only left mouse button
     if (evt.button !== 0) return
     evt.stopPropagation()
@@ -65,12 +63,12 @@ export class Draggable extends React.Component {
       dragging: true,
     })
   }
-  onMouseUp = (evt) => {
+  onMouseUp = evt => {
     evt.stopPropagation()
     evt.preventDefault()
     this.setState({dragging: false})
   }
-  onMouseMove = (evt) => {
+  onMouseMove = evt => {
     if (!this.state.dragging) return
     evt.stopPropagation()
     evt.preventDefault()
@@ -85,11 +83,8 @@ export class Draggable extends React.Component {
     }
   }
   render() {
-    return (
-      React.cloneElement(
-        React.Children.only(this.props.children),
-        {onMouseDown: this.onMouseDown},
-      )
-    )
+    return React.cloneElement(React.Children.only(this.props.children), {
+      onMouseDown: this.onMouseDown,
+    })
   }
 }

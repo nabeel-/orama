@@ -26,7 +26,7 @@ export const getDimArrays = props => {
   const getArraysFlow = _.flow(
     getDimArraysForRoot,
     dimArrays => mergeDimArrays(dimArrays, props.accessorsGroups),
-    wrapUpNewProps,
+    wrapUpNewProps
   )
   return getArraysFlow(props)
 }
