@@ -22,7 +22,7 @@ import {
   getMemoizeTypes,
 } from '../chartCore/memoize'
 
-import ChartRender from './ChartRender'
+import ChartLayers from './ChartLayers'
 
 function getTheme(props) {
   const theme = {...THEME, ...props.theme}
@@ -34,7 +34,7 @@ function handleCanvasInput(props, childProps) {
 }
 
 function Chart(props) {
-  const {memoizers, theme} = props
+  const {memoizers} = props
   const rootProps = chartTransformFlow(
     props,
     getTheme,
@@ -50,7 +50,9 @@ function Chart(props) {
   )
   const renderLayers = memoizers.getRenderLayers(rootProps)
   const style = {
-    background: theme.backgroundFill,
+    background: rootProps.theme.backgroundFill,
+    color: rootProps.theme.textFill,
+    fontFamily: rootProps.theme.fontFamily,
     height: rootProps.height,
     position: 'relative',
     userSelect: 'none',
@@ -59,7 +61,7 @@ function Chart(props) {
   return (
     <div style={style}>
       <ChartBackground {...rootProps} />
-      <ChartRender renderLayers={renderLayers} rootProps={rootProps} theme={rootProps.theme} />
+      <ChartLayers renderLayers={renderLayers} rootProps={rootProps} theme={rootProps.theme} />
       <CanvasInput
         onUpdate={childProps => handleCanvasInput(props, childProps)}
         renderLayers={renderLayers}
@@ -80,7 +82,6 @@ Chart.propTypes = {
 
 Chart.defaultProps = {
   proportion: PROPORTION,
-  theme: THEME,
   width: WIDTH,
 }
 
