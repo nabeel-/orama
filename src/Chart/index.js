@@ -74,7 +74,7 @@ class Chart extends React.Component {
   getRenderLayers = getMemoizeRenderLayers()
 
   render() {
-    const rootProps = chartTransformFlow(
+    const generatedProps = chartTransformFlow(
       this.props,
       getTheme,
       getLayers,
@@ -87,6 +87,10 @@ class Chart extends React.Component {
       this.getTickCounts,
       this.getScales
     )
+
+    const scales = this.getScales(generatedProps)
+    const rootProps = {...generatedProps, ...scales}
+
     const renderLayers = this.getRenderLayers(rootProps)
     const {height, theme, width} = rootProps
     const style = {

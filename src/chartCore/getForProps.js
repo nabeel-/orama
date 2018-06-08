@@ -26,9 +26,15 @@ export function getForProps(value, getFunc) {
     )
 }
 
+function getForAttributes(value, getter) {
+  return (deps, keys) =>
+    keys.reduce((acc, key) => ({...acc, [`${key}${value}`]: getter(deps, key)}), {})
+}
+
 export const getTypes = getForProps('Type', getType)
 export const getDomains = getForProps('Domain', getDomain)
 export const getRanges = getForProps('Range', getRange)
 export const getTickCounts = getForProps('TickCount', getTickCount)
-export const getScales = getForProps('Scale', getScale)
 export const getTickFormatters = getForProps('TickFormat', getTickFormat)
+
+export const getScales = getForAttributes('Scale', getScale)

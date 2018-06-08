@@ -1,6 +1,8 @@
 // Copyright 2018 Kensho Technologies, LLC.
 
-import {map} from 'lodash'
+import {map, pick} from 'lodash'
+
+import crossProduct from '../utils/crossProduct'
 
 import getDimArrays from './getDimArrays'
 import getLayer from './getLayer'
@@ -13,7 +15,6 @@ import {
   rerunCheckGetRanges,
   rerunCheckGetPlotRect,
   rerunCheckGetTickCounts,
-  rerunCheckGetScales,
   rerunCheckGetRenderLayers,
 } from './rerunChecks'
 
@@ -28,14 +29,33 @@ export function getMemoize(rerunCheck, transformFunc) {
   }
 }
 
+function areDependentsEqual(dependents, prevProps, props) {
+  return dependents.every(key => prevProps[key] === props[key])
+}
+
+function getAttributeMemoized(transformFunc, namedKeys, rootKeys = []) {
+  let memoized
+  let prevProps = {}
+  return function memoizer(props) {
+    const dependents = [...rootKeys, ...crossProduct(props.groupedKeys, namedKeys)]
+    const shouldRecompute = areDependentsEqual(dependents, prevProps, props)
+    if (shouldRecompute || !memoized)
+      memoized = transformFunc(pick(props, dependents), props.groupedKeys)
+    prevProps = props
+    return memoized
+  }
+}
+
 export const getMemoizeDimArrays = () => getMemoize(rerunCheckGetDimArrays, getDimArrays)
 export const getMemoizeTypes = () => getMemoize(rerunCheckGetTypes, getTypes)
 export const getMemoizeDomains = () => getMemoize(rerunCheckGetDomains, getDomains)
 export const getMemoizePlotRect = () => getMemoize(rerunCheckGetPlotRect, getPlotRect)
 export const getMemoizeRanges = () => getMemoize(rerunCheckGetRanges, getRanges)
 export const getMemoizeTickCounts = () => getMemoize(rerunCheckGetTickCounts, getTickCounts)
-export const getMemoizeScales = () => getMemoize(rerunCheckGetScales, getScales)
 export const getMemoizeRenderLayer = () => getMemoize(rerunCheckGetRenderLayers, getLayer)
+
+export const getMemoizeScales = () =>
+  getAttributeMemoized(getScales, ['Type', 'Domain', 'Range', 'TickCount', 'Nice'])
 
 export function getMemoizeRenderLayers() {
   const layersMemoize = []

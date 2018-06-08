@@ -34,13 +34,6 @@ export const rerunCheckGetPlotRect = getRerunCheckForNames(
 )
 export const rerunCheckGetRanges = getRerunCheckForNames(['Range', 'Type', 'Array'], ['plotRect'])
 export const rerunCheckGetTickCounts = getRerunCheckForNames(['TickCount', 'Range', 'TickSpace'])
-export const rerunCheckGetScales = getRerunCheckForNames([
-  'Type',
-  'Domain',
-  'Range',
-  'TickCount',
-  'Nice',
-])
 
 export const rerunCheckGetRenderLayers = getRerunCheckForNames(
   ['Array', 'Domain', 'Range', 'Scale'],

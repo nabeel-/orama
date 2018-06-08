@@ -46,14 +46,14 @@ export function getOrdinalInvert(scale) {
   }
 }
 
-export function getAxisScale(props, key) {
+export function getAxisScale(deps, key) {
   const {
     [`${key}Type`]: type = TYPE,
     [`${key}Domain`]: domain = DOMAIN,
     [`${key}Range`]: range = RANGE,
     [`${key}TickCount`]: tickCount = TICK_COUNT,
     [`${key}Nice`]: nice = NICE,
-  } = props
+  } = deps
   if (type === 'ordinal') {
     const ordinalScale = createScale(scalePoint, domain, range).padding(0.5)
     ordinalScale.invert = getOrdinalInvert(ordinalScale)
@@ -69,20 +69,20 @@ export function getAxisScale(props, key) {
   return getBaseScales(type, domain, range, nice, tickCount)
 }
 
-export function getDefaultScale(props, key) {
+export function getDefaultScale(deps, key) {
   const {
     [`${key}Type`]: type = TYPE,
     [`${key}Domain`]: domain = DOMAIN,
     [`${key}Range`]: range = RANGE,
     [`${key}TickCount`]: tickCount = TICK_COUNT,
     [`${key}Nice`]: nice = NICE,
-  } = props
+  } = deps
   return type === 'ordinal'
     ? createScale(scaleOrdinal, domain, range)
     : getBaseScales(type, domain, range, nice, tickCount)
 }
 
 // main exported function, used outside of the module on the Chart props transform flow
-export default function getScale(props, key) {
-  return key === 'x' || key === 'y' ? getAxisScale(props, key) : getDefaultScale(props, key)
+export default function getScale(deps, key) {
+  return key === 'x' || key === 'y' ? getAxisScale(deps, key) : getDefaultScale(deps, key)
 }
