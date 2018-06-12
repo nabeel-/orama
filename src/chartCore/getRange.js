@@ -11,7 +11,7 @@ export default function getRange(props, key) {
     case 'y':
       return [getMaxY(plotRect), plotRect.y]
     case 'radius':
-      return type === 'ordinal' ? [2, 4, 8, 12, 16, 20] : [2, 20]
+      return type === 'ordinal' ? [2, 4, 8, 12, 16, 20] : [1, 20]
     case 'lineWidth':
       return type === 'ordinal' ? [1, 2, 3, 4] : [0.5, 4]
     case 'lineDash':

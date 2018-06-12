@@ -17,5 +17,5 @@ export default function getTooltipFormat(props, key) {
   }
   if (type === 'time') return d => d.toDateString()
   if (!scale.tickFormat) return d => d
-  return scale.tickFormat(tickCount)
+  return tickCount ? scale.tickFormat(tickCount) : scale
 }
